@@ -49,3 +49,15 @@ cp exportcheck-ftp.php /var/www/html/YOUR-CHECK-URL-DIR/index.php
 
 設定:
 如果是ftp模組，別忘了更改exportcheck-ftp.php檔案裡面的相關變數
+
+#
+# manualexport
+# 如果有自動匯出，當然就會有手動匯出的版本
+#
+
+安裝:
+放哪裡都可以
+
+設定:
+除了要指定設定檔的位置，於manualexport.php裡面
+還有要指定svn repo的原始路徑

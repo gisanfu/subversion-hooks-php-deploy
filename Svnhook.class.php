@@ -92,15 +92,19 @@ class SvnHook extends Svn {
 	/*
 	 * 模組執行的前置動作
 	 * 每一個模組都會先執行這個動作
+	 *
+	 * @is_manual 如果有1這個值，代表是手動的要使用
 	 */
-	function hookExport() { 
+	function hookExport($is_manual = '') { 
 
-		/*
-		 * 接下來，是處理修改與刪除的忽略檢查動作
-		 */
+		if($is_manual == ''){
+			$revision = $this->revision_range;
+		} else {
+			$revision = $this->revision_hook;
+		}
 
 		// 從svn裡面取得修改以及刪除的列表
-		$all = $this->getModifyListBySvnLog($this->revision_range);
+		$all = $this->getModifyListBySvnLog($revision);
 		$modify = $all['modify'];
 		$delete = $all['delete'];
 
