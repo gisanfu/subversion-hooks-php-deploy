@@ -60,4 +60,4 @@ cp exportcheck-ftp.php /var/www/html/YOUR-CHECK-URL-DIR/index.php
 
 設定:
 除了要指定設定檔的位置，於manualexport.php裡面
-還有要指定svn repo的原始路徑
+還有要指定svn repo的原始路徑 
