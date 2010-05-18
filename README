@@ -1,1 +1,51 @@
-測試中文
+#
+# 介紹
+#
+
+這是一個Svn PHP Class
+透過它，在跟隨其它的應用
+例如svn hooks(post-commit，或稱自動更新)、
+exportcheck(檢查自動更新過後的結果)。
+
+#
+# 目的或者是目標
+#
+
+當程式設計師commit，就會自動將檔案更新到指定的地方
+可以送到本地端、遠端FTP、遠端SCP(ssh)
+也可以合併在一起使用(更新本地端，也同時更新遠端)
+
+或者是授權給網頁設計師(可能只有幾個資料夾)去更新主機上面的檔案
+
+也就是可以靈活的交叉使用
+
+#
+# post-commit-exportweb.php
+# 或者稱svn hooks的其中一員
+#
+
+安裝方式:
+cp pre-commit /YOUR-SVN-PATH/YOUR-REPO/hooks/
+cp post-commit-exportweb.php /YOUR-SVN-PATH/YOUR-REPO/hooks/post-commit
+
+cp exportweb.ini /YOUR-SVN-PATH/YOUR-REPO/hooks/
+
+設定，請依您的repo名稱，增加section，並且繼承default section:
+vim exportweb.ini
+
+#
+# exportcheck
+# 在svn hooks自動匯出之後，手動去檢查看有沒有漏掉的
+#
+
+安裝方式:
+
+cp exportcheck-local.php /var/www/html/YOUR-CHECK-URL-DIR/index.php
+
+安裝方式(以ftp為例):
+
+cp exportcheck-ftp.php /var/www/html/YOUR-CHECK-URL-DIR/index.php
+並把exportcheck-ftp-remote.php 放到ftp主機上面
+
+設定:
+如果是ftp模組，別忘了更改exportcheck-ftp.php檔案裡面的相關變數

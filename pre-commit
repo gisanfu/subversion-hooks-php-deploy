@@ -1,0 +1,20 @@
+#!/bin/sh
+
+#
+# create: 2009-11-17
+# author: gisanfu
+#
+
+REPOS="$1"
+TXN="$2"
+
+SVNLOOK=svnlook
+LOGMSG=`$SVNLOOK log -t "$TXN" "$REPOS" | grep "[a-zA-Z0-9]" | wc -c`
+
+if [ "$LOGMSG" -lt 5 ];
+then
+  echo -e "\nARE YOU KIDDING!!! You must input more than 5 chars as comment!." 1>&2
+  exit 1
+fi 
+
+exit 0
