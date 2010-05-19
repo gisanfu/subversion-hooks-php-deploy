@@ -60,7 +60,7 @@ $module = $config->modules;
 /*
  * local的模組
  */
-if($module->local->enable == '1'){
+if($module->local->manual == '1'){
 
 	$module_name = 'local';
 	$mkdircmd = '';
@@ -145,7 +145,7 @@ if($module->local->enable == '1'){
 /*
  * local2的模組
  */
-if($module->local2->enable == '1'){
+if($module->local2->manual == '1'){
 
 	$module_name = 'local2';
 	$mkdircmd = '';
@@ -305,7 +305,7 @@ if($module->local2->enable == '1'){
 /*
  * ftp的模組
  */
-if($module->ftp->enable == '1'){
+if($module->ftp->manual == '1'){
 
 	$module_name = 'ftp';
 
@@ -372,7 +372,7 @@ END_OF_SESSION';
 /*
  * ssh的模組
  */
-if($module->ssh->enable == '1'){
+if($module->ssh->manual == '1'){
 
 	$module_name = 'ssh';
 	$returncmd = '';
@@ -418,7 +418,7 @@ if($module->ssh->enable == '1'){
 /*
  * ssh2的模組
  */
-if($module->ssh2->enable == '1'){
+if($module->ssh2->manual == '1'){
 
 	$module_name = 'ssh2';
 	$returncmd = '';
