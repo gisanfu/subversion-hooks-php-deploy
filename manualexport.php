@@ -467,15 +467,15 @@ if($module->ssh2->manual == '1'){
 	// 刪除檔案或資料夾
 	if(count($deletelist) > 0){
 		foreach($deletelist as $k => $fullfile){
-			// @kk 自動編號
-			// @vv file_source
+			// @k 自動編號
+			// @v file_source
 			foreach($ssh2_files_source as $k => $v){
 				if($fullfile == $v){
 					$returncmd .= 'ssh '.$module->ssh2->host.' \'rm -rf '.$module->ssh2->dir.'/'.$fullfile.'\''.$nextline;
 				}
 			}
-			// @kk 自動編號
-			// @vv dir_source
+			// @k 自動編號
+			// @v dir_source
 			foreach($ssh2_dirs_source as $k => $v){
 				if(preg_match('/^'.$fullfile.'/', $v)){
 					$returncmd .= 'ssh '.$module->ssh2->host.' \'rm -rf '.$module->ssh2->dir.'/'.$fullfile.'\''.$nextline;
