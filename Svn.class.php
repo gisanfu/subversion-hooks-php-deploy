@@ -303,7 +303,7 @@ class Svn {
 		$returnarray = array();
 
 		foreach($array_outfile as $key => $val){
-			if(preg_match('/(A|M|MM| M)\s+(.*)/', $val, $matches)){
+			if(preg_match('/(A|R|M|MM| M)\s+(.*)/', $val, $matches)){
 				$full_item = $matches[2];
 				$export_item = substr($full_item, strlen($svnurl)+1);
 
@@ -361,9 +361,14 @@ class Svn {
 			//if(preg_match('/^r(.*) \|.*/', $val, $matches)){
 			//	error_msg($logfile, '# revision: '.$matches[1], 0);
 			//}
-			if(preg_match('/   (A|M) (.*)/', $val, $matches)){
+			if(preg_match('/   (A|R|M) (.*)/', $val, $matches)){
 				// 先把開頭的斜線去掉
 				$export_item = substr($matches[2], 1);
+
+				// Merge會出現的檔案或資料夾項目
+				if(preg_match('/^(.*) \(from (.*):(\d+)\)$/', $export_item, $matches)){
+					$export_item = $matches[1];
+				}
 
 				// 如果有啟用分支功能，就把branches的資料夾去掉
 				if($this->branches != ''){
