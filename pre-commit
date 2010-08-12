@@ -1,20 +1,41 @@
-#!/bin/sh
-
-#
-# create: 2009-11-17
-# author: gisanfu
-#
+#!/bin/bash
 
 REPOS="$1"
 TXN="$2"
+PHP="/usr/bin/php"
+SVNLOOK=/usr/bin/svnlook
 
-SVNLOOK=svnlook
 LOGMSG=`$SVNLOOK log -t "$TXN" "$REPOS" | grep "[a-zA-Z0-9]" | wc -c`
-
 if [ "$LOGMSG" -lt 5 ];
 then
   echo -e "\nARE YOU KIDDING!!! You must input more than 5 chars as comment!." 1>&2
   exit 1
 fi 
 
-exit 0
+CHANGED=`$SVNLOOK changed -t "$TXN" "$REPOS" | awk '{print $2}'`
+for LINE in $CHANGED
+  do
+  FILE=`echo $LINE | egrep \\.php$`
+  if [ $? == 0 ]
+  then
+   MESSAGE=`$SVNLOOK cat -t "$TXN" "$REPOS" "${FILE}" | $PHP -l`
+   if [ $? -ne 0 ]
+   then
+    echo " " 1>&2
+    echo "---------------------------------------------------------------------------------" 1>&2
+    echo "During automatic PHP syntax checking we found an error in the following PHP file: " 1>&2
+    echo " " 1>&2
+    echo "${FILE}: $MESSAGE" | sed "s| -| $FILE|g" 1>&2
+    echo " " 1>&2
+    echo "Please correct the error and try commit again." 1>&2
+    echo " " 1>&2
+    echo "You can check for syntax error on your computer by running command: php -l ${FILE}" 1>&2
+    echo " " 1>&2
+    echo "Best regards," 1>&2
+    echo "Doctrine Dev Team" 1>&2
+    echo "---------------------------------------------------------------------------------" 1>&2
+    exit 1
+   fi
+  fi
+ done
+
